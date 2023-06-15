@@ -1,19 +1,16 @@
 import {Row,Col,Card,Input } from 'antd';
 import {SearchOutlined} from '@ant-design/icons';
 import '../../Assets/Styles/present.css'
-import { useState,useContext } from 'react';
-import { LocationContext } from '../Main';
+import { useContext } from 'react';
+import { LocationContext,SetLocationContext } from '../Main';
 
 const Present = ()=>{
 
     const data = useContext(LocationContext);
-    // const myTimeout = setTimeout(()=>{
-    //     console.log(data)
-    //     console.log(data.name)
-    // }, 5000);
-    // console.log(data);
+    const handleSubmit = useContext(SetLocationContext)
 
     let name,celsius,description,wind,pressure,humidity;
+
     if(data === undefined) {
         name = "Mohali";
         celsius = "36";
@@ -31,16 +28,6 @@ const Present = ()=>{
      humidity = data.main.humidity;
     }
     
-    
-    
-    // const name = data.name;
-    // console.log(name)
-    // const celsius = Math.round(data.main.temp - 273.15);
-    // const description = (data.weather[0].description);
-    // const wind = data.wind.speed;
-    // const pressure = data.main.pressure;
-    // const humidity = data.main.humidity;
-    
 
     return(
         <>
@@ -50,7 +37,7 @@ const Present = ()=>{
                 </Col>
                 <Col span={2}></Col>
                 <Col className="col" span={10}>
-                    <Input className="input" size="large" placeholder="Search Location" prefix={<SearchOutlined />} />
+                    <Input onPressEnter={(value)=>handleSubmit(value.target.value)} className="input" size="large" placeholder="Search Location" prefix={<SearchOutlined />} />
                 </Col>
             </Row>
 
